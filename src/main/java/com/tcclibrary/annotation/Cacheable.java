@@ -1,0 +1,14 @@
+package com.tcclibrary.annotation;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Cacheable {
+	String condition() default "";
+	String ttl() default "5000";
+
+}
