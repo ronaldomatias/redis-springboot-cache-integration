@@ -1,43 +1,28 @@
 package com.tcclibrary.component.redis;
 
-import com.tcclibrary.interceptor.CacheInterceptor.RedisDTO;
+import com.tcclibrary.util.ObjectMapperUtil;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class RedisBase implements RedisInterface {
+	JedisClient jedisClient = new JedisClient();
 
 	@Override
-	public void set(String key, RedisDTO value, Long ttl) {
-
+	@SneakyThrows
+	public void set(RedisDTO dto) {
+		jedisClient.getJedis().set(dto.getKey(), ObjectMapperUtil.getObjectMapper().writeValueAsString(dto.getValue()));
 	}
 
 	@Override
 	public String get(String key) {
-		return "Value";
+		return jedisClient.getJedis().get(key);
 	}
 
 	@Override
-	public Long getTtl(String key) {
-		return 210421L;
-	}
-
-	@Override
-	public boolean expiredTTL(RedisDTO redisDTO) {
-		return this.getTtl(redisDTO.getKey()) > redisDTO.getTtl();
-	}
-
 	public boolean existsKey(String key) {
-		return this.get(key) != null;
-	}
-
-	public void saveOrUpdateValueInRedis(RedisDTO redisDTO) {
-		if (!existsKey(redisDTO.getKey())) {
-			this.set(redisDTO.getKey(), redisDTO, redisDTO.getTtl());
-		} else {
-			if (expiredTTL(redisDTO)) {
-				this.set(redisDTO.getKey(), redisDTO, redisDTO.getTtl());
-			}
-		}
+		return jedisClient.getJedis().exists(key);
 	}
 
 

@@ -8,7 +8,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Cacheable {
-	String condition() default "";
-	String ttl() default "5000";
+	String key();
+	long ttl(); // TODO: Este valor precisa ser Long.
+	Class type();
+	String method();
 
 }

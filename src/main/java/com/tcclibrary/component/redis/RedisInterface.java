@@ -1,15 +1,10 @@
 package com.tcclibrary.component.redis;
 
-import com.tcclibrary.interceptor.CacheInterceptor;
 
 public interface RedisInterface {
-	void set(String key, CacheInterceptor.RedisDTO value, Long ttl);
+	void set(RedisDTO value);
 
-	Object get(String key);
-
-	boolean expiredTTL(CacheInterceptor.RedisDTO key);
+	String get(String key);
 
 	boolean existsKey(String key);
-
-	Long getTtl(String key);
 }

@@ -1,0 +1,3 @@
+PROPERTIES:
+1. Como definir dinamicamente a propriedade 'redis.cluster.nodes' ?
+R- Precisa encontrar alguma maneira de verificar quantas instâncias de redis estão ligadas. Como se comunicar com o docker ?
