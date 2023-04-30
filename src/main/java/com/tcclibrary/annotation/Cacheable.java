@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Cacheable {
 	String key();
-	long ttl(); // TODO: Este valor precisa ser Long.
+	long ttl();
 	Class type();
-	String method();
+	String condition() default "";
 
 }

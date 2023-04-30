@@ -19,8 +19,12 @@ public class Aspect {
 	RedisBase redisBase;
 
 	@Around("execution(* com.tcclibrary.service..*(..)))")
-	public Object profileAllMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+	public Object allMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 		MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
+
+		if (!methodSignature.getMethod().isAnnotationPresent(Cacheable.class)){
+			return proceedingJoinPoint.proceed();
+		}
 
 		Cacheable annotation = methodSignature.getMethod().getAnnotation(Cacheable.class);
 
@@ -32,7 +36,7 @@ public class Aspect {
 			redisBase.set(new RedisDTO(annotation.key(), response, methodSignature.getReturnType(), annotation.ttl()));
 		}
 
-		return "Cacheable";
+		return response;
 	}
 
 }
