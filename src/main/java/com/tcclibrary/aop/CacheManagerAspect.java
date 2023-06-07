@@ -1,8 +1,7 @@
 package com.tcclibrary.aop;
 
 import com.tcclibrary.annotation.Cacheable;
-import com.tcclibrary.component.redis.RedisBase;
-import com.tcclibrary.component.redis.RedisDTO;
+import com.tcclibrary.domain.CacheManagerService;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -14,11 +13,12 @@ import org.springframework.stereotype.Component;
 @Component
 @org.aspectj.lang.annotation.Aspect
 @Log4j2
-public class Aspect {
-	@Autowired
-	RedisBase redisBase;
+public class CacheManagerAspect {
 
-	@Around("execution(* com.tcclibrary.service..*(..)))")
+	@Autowired
+	CacheManagerService cacheManager;
+
+	@Around("execution(* com.tcclibrary.api.service..*(..)))")
 	public Object allMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 		MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
 
@@ -27,16 +27,7 @@ public class Aspect {
 		}
 
 		Cacheable annotation = methodSignature.getMethod().getAnnotation(Cacheable.class);
-
-		Object response;
-		if (redisBase.existsKey(annotation.key())) {
-			response = redisBase.get(annotation.key());
-		} else {
-			response = proceedingJoinPoint.proceed();
-			redisBase.set(new RedisDTO(annotation.key(), response, methodSignature.getReturnType(), annotation.ttl()));
-		}
-
-		return response;
+		return cacheManager.cacheable(annotation, proceedingJoinPoint);
 	}
 
 }

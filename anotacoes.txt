@@ -4,3 +4,4 @@ R- Precisa encontrar alguma maneira de verificar quantas instâncias de redis es
 
 FUNCIONALIDADES:
 1. Criar uma maneira de gerenciar o tamanho do serviço de cache para evitar sobrecarga.
+2. Verificar quando os dados contém acento. Acho que precisa configurar o UTF.

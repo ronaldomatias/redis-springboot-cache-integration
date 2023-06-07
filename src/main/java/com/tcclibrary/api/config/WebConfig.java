@@ -1,6 +1,6 @@
-package com.tcclibrary.config;
+package com.tcclibrary.api.config;
 
-import com.tcclibrary.component.redis.RedisBase;
+import com.tcclibrary.jedis.JedisClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -9,7 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 public class WebConfig extends WebMvcConfigurationSupport {
 
 	@Bean
-	public RedisBase beanRedisBase() {return new RedisBase();
+	public JedisClient beanJedisClientConfiguration() {
+		return new JedisClient("localhost", 6379);
 	}
 
 }

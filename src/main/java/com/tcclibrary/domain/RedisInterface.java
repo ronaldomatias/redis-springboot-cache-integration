@@ -1,4 +1,4 @@
-package com.tcclibrary.component.redis;
+package com.tcclibrary.domain;
 
 
 public interface RedisInterface {

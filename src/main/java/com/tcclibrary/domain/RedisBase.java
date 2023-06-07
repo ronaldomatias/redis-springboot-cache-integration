@@ -1,14 +1,15 @@
-package com.tcclibrary.component.redis;
+package com.tcclibrary.domain;
 
-import com.tcclibrary.config.JedisClient;
+import com.tcclibrary.jedis.JedisClient;
 import com.tcclibrary.util.ObjectMapperUtil;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 
 @Component
 public class RedisBase implements RedisInterface {
-	JedisClient client = new JedisClient();
+	@Autowired
+	JedisClient client;
 
 	@Override
 	@SneakyThrows
