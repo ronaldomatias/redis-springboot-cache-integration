@@ -1,6 +1,6 @@
-package com.tcclibrary.api.controller;
+package com.tcclibrary.simulador.controller;
 
-import com.tcclibrary.api.service.AnyService;
+import com.tcclibrary.simulador.service.AnyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -4,18 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class RedisDTO {
 	private String key;
 	private Object value;
 	private Long ttl;
 
-	public RedisDTO(String key, Object value) {
+	public RedisDTO(String key, Long ttl) {
 		this.key = key;
-		this.value = value;
+		this.ttl = ttl;
 	}
 
-	public RedisDTO(String key) {
-		this.key = key;
-	}
 }

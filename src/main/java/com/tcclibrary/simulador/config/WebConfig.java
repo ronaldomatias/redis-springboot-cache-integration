@@ -1,4 +1,4 @@
-package com.tcclibrary.api.config;
+package com.tcclibrary.simulador.config;
 
 import com.tcclibrary.jedis.JedisClient;
 import org.springframework.context.annotation.Bean;
@@ -8,8 +8,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport {
 
+	// TODO: O sistema deve receber o host e port do properties.
+
 	@Bean
-	public JedisClient beanJedisClientConfiguration() {
+	public JedisClient jedisClient() {
 		return new JedisClient("localhost", 6379);
 	}
 
